@@ -1,0 +1,137 @@
+<template name="wordGame">
+  <div id="game-area">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h1>Guess the word!</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+            You'll have 60 seconds a game to unscramble the letters below to form the words. The actual word might be an anagram of the word you picked.
+          </p>
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- Spacer -->
+        <!-- <div class="col-xs-1 col-sm-1 col-md-2 col-lg-3"></div> -->
+
+        <!-- Content -->
+        <div class="col-xs-10 col-sm-6 col-md-6 col-lg-6">
+
+          {{#if currentSession}}
+          <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+              <h4 class="">
+                Score: {{currentScore}}
+              </h4>
+            </div>
+
+            <div class="col-sm-6 col-md-6 col-lg-6 pull-right text-right">
+              <h4 id="count-down-timer" class='{{lastTenSeconds}}'>
+                Time Left: {{timeRemainingDisplay}}s
+              </h4>
+            </div>
+          </div>
+
+          <!-- player's guess -->
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="letter-well" id="player-guess">
+                <p>Your Guess:</p>
+                {{#each currentGuess}}
+                <div class="wordOptionTile">
+                  {{currentLetter}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+
+          <!-- available letters -->
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="letter-well">
+                <p>Available Letters:</p>
+                {{#each currentWord}}
+                <div class="wordOptionTile">
+                  {{currentLetter}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          {{/if}}
+
+          <!-- Start New Game Button -->
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+              <div class="btn btn-primary" id="start-new-game">
+                Start New Game
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+        <!-- End Content -->
+
+        <!-- Leader board -->
+        <div class="col-xs-6 col-sm-5 col-sm-offset-1 col-md-3 col-md-offset-1 col-lg-4">
+          <h4>Leaderboard: </h4>
+          {{> highScoreList}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  {{> overlayGameOver}}
+
+</template>
+
+<template name="overlayGameOver">
+  <div class="modal fade" id="overlay-game-over" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          Game over!
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="player-initials">Initials:</label>
+            <input type="text" name="name" value="" class="form-control" id="player-initials" maxlength="3">
+          </div>
+
+          {{#if highScoreInitialsError}}
+          <p class='text-danger'>
+            {{highScoreInitialsError}}
+          </p>
+          {{/if}}
+
+        </div>
+        <div class="modal-footer">
+          <div class="row">
+            <div class="col-md-2 ">
+              <button type="button" class="btn btn-primary" id="initials-submit" name="button">Submit</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<template name="highScoreList">
+  {{#each highScores}}
+    <div class="score-list">
+      {{initials}}: {{score}}
+    </div>
+  {{/each}}
+</template>

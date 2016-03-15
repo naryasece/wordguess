@@ -1,0 +1,69 @@
+.wordOptionTile {
+  display: inline-block;
+  width:  36px;
+  line-height: 32px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+  border: 2px solid black;
+  border-radius: 3px;
+  margin: 5px;
+  background-color: white;
+  animation: letterAppear 0.2s linear;
+}
+
+@keyframes letterAppear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.correct-word {
+  animation: correctLetter 0.3s linear;
+}
+@keyframes correctLetter {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #baffc9;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+.incorrect-word {
+  animation: incorrectLetter 0.3s linear;
+}
+@keyframes incorrectLetter {
+  0% {
+    background-color: transparent;
+  }
+  50% {
+    background-color: #ffb3ba;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+.letter-well {
+  padding: 10px;
+  margin: 10px 0;
+  border: 2px solid black;
+  border-radius: 3px;
+  min-height: 100px;
+}
+
+.final-countdown {
+  color: #ffb3ba;
+}
+
+
+body {
+  background-color: #eee;
+}
