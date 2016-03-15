@@ -24,7 +24,7 @@ Meteor.methods({
       var randomNumber = Math.floor(Math.random()*letterPool.length);
       randomWord += letterPool.splice(randomNumber, 1).join("");
     }
-    console.log(inputWord, randomWord);
+    // console.log(inputWord, randomWord);
 
     return randomWord;
 
@@ -61,8 +61,8 @@ Meteor.methods({
   },
   'checkWord': function(word, sessionId) {
     this.unblock();
-    console.log("checking word");
-    console.log(word, sessionId);
+    // console.log("checking word");
+    // console.log(word, sessionId);
     var oneMinuteBack = moment().subtract("1", "minute").toDate();
     var foundSession = gameScore.findOne({
       sessionId:sessionId,
@@ -84,7 +84,7 @@ Meteor.methods({
   'nextWord': function(sessionId, validatePoints) {
     this.unblock();
     var session = gameScore.findOne({sessionId:sessionId});
-    console.log(session);
+    // console.log(session);
 
     if(session) {
       if(session.validatePoints && session.validatePoints === validatePoints) {

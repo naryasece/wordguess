@@ -47,13 +47,12 @@ Template.wordGame.events({
 Template.wordGame.onRendered(function(){
 
   $(document).on('keydown', function(e){
-    console.log(e);
+    // console.log(e);
     e.preventDefault();
   });
   $(document).on('keyup',function(e) {
-    console.log(e);
+    // console.log(e);
     e.preventDefault();
-    console.log('KEYUP');
     // console.log(e.keyCode);
 
     // Check if there is an active session
@@ -99,6 +98,8 @@ Template.wordGame.onRendered(function(){
 
               } else if (!err && !resp) {
                 $("#player-guess").addClass("incorrect-word");
+              } else {
+                console.log(err);
               }
             });
           }
@@ -113,9 +114,9 @@ Template.wordGame.onCreated(function(){
 
   guessWordGame = {
     getNextWord: function(validatePoints) {
-      console.log("getNextWord");
+      // console.log("getNextWord");
       Meteor.call("nextWord", Session.get("gameSession"), validatePoints, function(err, resp){
-        console.log("nextWord resp",err, resp);
+        // console.log("nextWord resp",err, resp);
         if(!err && resp) {
           Session.set('word', resp.word.split(""));
           Session.set('backupWord', resp.word); //just in case word gets goofed up.
@@ -153,7 +154,7 @@ Template.wordGame.onCreated(function(){
     },
     startNewGame: function() {
       Meteor.call("startNewGameSession", function(err, resp){
-        console.log(err, resp);
+        // console.log(err, resp);
         if(!err) {
           Session.set('gameSession', resp.session);
           Session.set('word', resp.word.split(""));
@@ -191,14 +192,9 @@ Template.overlayGameOver.helpers({
 
 Template.overlayGameOver.events({
   'show.bs.modal' :function() {
-    // $(document).off('keydown');
     Session.set("highScoreInitialsError", null);
   },
   'hide.bs.modal' : function() {
-    // $(document).on('keydown', function(e){
-    //   console.log(e);
-    //   e.preventDefault();
-    // });
     Session.set("gameSession", null);
   },
   'focus #player-initials': function() {
@@ -206,7 +202,7 @@ Template.overlayGameOver.events({
   },
   'blur #player-initials': function() {
     $(document).on('keydown', function(e){
-      console.log(e);
+      // console.log(e);
       e.preventDefault();
     });
   },
@@ -248,7 +244,7 @@ Template.highScoreList.onCreated(function() {
   instance.autorun(function() {
     var subscription = instance.subscribe('scores');
     if(subscription.ready()) {
-      console.log(">> subscripion of scores ready");
+      // console.log(">> subscripion of scores ready");
     }
   });
 
